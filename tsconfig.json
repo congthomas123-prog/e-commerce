@@ -2,5 +2,39 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./apps/auth-service-e2e"
+    },
+    {
+      "path": "./apps/auth-service"
+    },
+    {
+      "path": "./apps/user-service"
+    },
+    {
+      "path": "./apps/product-service"
+    },
+    {
+      "path": "./apps/order-service"
+    },
+    {
+      "path": "./apps/payment-service"
+    },
+    {
+      "path": "./apps/notification-service"
+    },
+    {
+      "path": "./libs/common"
+    },
+    {
+      "path": "./libs/messaging"
+    },
+    {
+      "path": "./libs/auth"
+    },
+    {
+      "path": "./libs/database"
+    }
+  ]
 }
