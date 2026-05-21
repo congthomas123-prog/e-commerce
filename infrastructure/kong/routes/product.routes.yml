@@ -1,0 +1,7 @@
+- name: product-route
+  service:
+    name: product-service
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  paths:
+    - /api/v1/products
+  strip_path: false

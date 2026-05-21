@@ -1,0 +1,75 @@
+name: ecommerce-infrastructure
+
+services:
+  kong:
+    build:
+      context: ./kong
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /etc/kong/kong.yml
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+    ports:
+      - "${KONG_PROXY_PORT:-8000}:8000"
+      - "${KONG_ADMIN_PORT:-8001}:8001"
+      - "${KONG_PROXY_SSL_PORT:-8443}:8443"
+    depends_on:
+      - nats
+      - postgres
+      - redis
+    networks:
+      - backplane
+
+  nats:
+    build:
+      context: ./nats
+    command: ["-c", "/etc/nats/nats-server.conf"]
+    ports:
+      - "${NATS_CLIENT_PORT:-4222}:4222"
+      - "${NATS_MONITORING_PORT:-8222}:8222"
+    volumes:
+      - nats-data:/data
+    networks:
+      - backplane
+
+  postgres:
+    image: postgres:16-alpine
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    environment:
+      POSTGRES_USER: "${POSTGRES_SUPERUSER:-postgres}"
+      POSTGRES_PASSWORD: "${POSTGRES_SUPERUSER_PASSWORD:-postgres}"
+      POSTGRES_DB: postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+      - ./postgres/configs/postgres.conf:/etc/postgresql/postgresql.conf:ro
+      - ./postgres/backups:/backups
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backplane
+
+  redis:
+    build:
+      context: ./redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+      - ./redis/sessions:/sessions
+    networks:
+      - backplane
+
+volumes:
+  nats-data:
+  postgres-data:
+  redis-data:
+
+networks:
+  backplane:
+    driver: bridge

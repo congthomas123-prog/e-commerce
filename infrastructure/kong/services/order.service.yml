@@ -1,0 +1,5 @@
+- name: order-service
+  url: ${ORDER_SERVICE_URL}
+  connect_timeout: 60000
+  read_timeout: 60000
+  write_timeout: 60000

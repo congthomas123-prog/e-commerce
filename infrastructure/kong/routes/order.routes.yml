@@ -1,0 +1,7 @@
+- name: order-route
+  service:
+    name: order-service
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  paths:
+    - /api/v1/orders
+  strip_path: false

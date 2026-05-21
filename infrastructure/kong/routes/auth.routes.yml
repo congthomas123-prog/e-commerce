@@ -1,0 +1,7 @@
+- name: auth-route
+  service:
+    name: auth-service
+  methods: [GET, POST, PUT, PATCH, DELETE]
+  paths:
+    - /api/v1/auth
+  strip_path: false

@@ -1,0 +1,7 @@
+{
+  "name": "ORDER_EVENTS",
+  "subjects": ["order.event.*"],
+  "retention": "limits",
+  "storage": "file",
+  "num_replicas": 1
+}

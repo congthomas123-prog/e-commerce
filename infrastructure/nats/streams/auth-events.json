@@ -1,0 +1,7 @@
+{
+  "name": "AUTH_EVENTS",
+  "subjects": ["auth.event.*"],
+  "retention": "limits",
+  "storage": "file",
+  "num_replicas": 1
+}

@@ -1,0 +1,12 @@
+- name: rate-limiting
+  route:
+    name: auth-route
+  config:
+    minute: 120
+    policy: local
+- name: rate-limiting
+  route:
+    name: payment-route
+  config:
+    minute: 60
+    policy: local

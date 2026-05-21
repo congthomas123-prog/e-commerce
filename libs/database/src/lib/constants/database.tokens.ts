@@ -1,0 +1,2 @@
+export const DATABASE_MODULE_OPTIONS = Symbol('DATABASE_MODULE_OPTIONS');
+export const PRISMA_CLIENT = Symbol('PRISMA_CLIENT');

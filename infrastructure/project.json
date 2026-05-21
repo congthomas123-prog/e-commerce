@@ -1,0 +1,47 @@
+{
+  "name": "infrastructure",
+  "root": "infrastructure",
+  "projectType": "application",
+  "tags": ["type:infrastructure", "scope:platform"],
+  "targets": {
+    "validate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "commands": [
+          "node infrastructure/kong/scripts/build-kong-config.mjs --check",
+          "docker compose --env-file infrastructure/.env.example -f infrastructure/docker-compose.yml config"
+        ],
+        "parallel": false
+      }
+    },
+    "up": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "command": "docker compose --env-file infrastructure/.env -f infrastructure/docker-compose.yml up -d --build"
+      }
+    },
+    "down": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "command": "docker compose --env-file infrastructure/.env -f infrastructure/docker-compose.yml down --remove-orphans"
+      }
+    },
+    "ps": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "command": "docker compose --env-file infrastructure/.env -f infrastructure/docker-compose.yml ps"
+      }
+    },
+    "logs": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}",
+        "command": "docker compose --env-file infrastructure/.env -f infrastructure/docker-compose.yml logs --tail=200"
+      }
+    }
+  }
+}

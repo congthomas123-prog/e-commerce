@@ -1,0 +1,4 @@
+- name: file-log
+  config:
+    path: /dev/stdout
+    reopen: false

@@ -1,0 +1,5 @@
+- name: user-service
+  url: ${USER_SERVICE_URL}
+  connect_timeout: 60000
+  read_timeout: 60000
+  write_timeout: 60000

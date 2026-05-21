@@ -1,0 +1,7 @@
+{
+  "name": "PAYMENT_EVENTS",
+  "subjects": ["payment.event.*"],
+  "retention": "limits",
+  "storage": "file",
+  "num_replicas": 1
+}
