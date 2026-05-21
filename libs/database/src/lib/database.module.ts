@@ -2,11 +2,13 @@ import {
   type DynamicModule,
   Module,
   type Provider,
+  Global,
 } from '@nestjs/common';
 import { DATABASE_MODULE_OPTIONS, PRISMA_CLIENT } from './constants/database.tokens';
 import type { DatabaseModuleAsyncOptions, DatabaseModuleOptions } from './interfaces/database-module-options.interface';
 import { PrismaService } from './prisma.service';
 
+@Global()
 @Module({
   providers: [PrismaService],
   exports: [PrismaService],

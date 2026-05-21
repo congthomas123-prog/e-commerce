@@ -2,7 +2,9 @@
   "name": "@org/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "ts-node -P apps/auth-service/tsconfig.app.json -T apps/auth-service/src/main.ts"
+  },
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.8.0",
