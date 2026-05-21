@@ -17,7 +17,7 @@ services:
           - PATCH
           - DELETE
         paths:
-          - /api/v1/auth
+          - /api/auth
         strip_path: false
         plugins:
           - name: rate-limiting
